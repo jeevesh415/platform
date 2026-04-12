@@ -139,6 +139,7 @@ export interface Association extends Doc {
   nameA: string
   nameB: string
   type: '1:1' | '1:N' | 'N:N'
+  automationOnly?: boolean
 }
 
 /**
@@ -498,6 +499,8 @@ export interface Space extends Doc {
   archived: boolean
   owners?: AccountUuid[]
   autoJoin?: boolean
+  /** If it includes {@link AccountRole.Guest}, that guest is auto-added to members on activation (see OnEmployeeCreate). */
+  autoJoinForRoles?: AccountRole[]
 }
 
 /**
@@ -580,6 +583,19 @@ export interface AttributePermission extends Permission {
 
 export interface ClassPermission extends Permission {
   targetClass: Ref<Class<Doc>>
+}
+
+/**
+ * @public
+ */
+export interface ModulePermissionGroup extends Doc {
+  application: Ref<Doc>
+  role: AccountRole
+  permissions: Ref<Permission>[]
+  disabledPermissions?: Ref<Permission>[]
+  spaceClass: Ref<Class<Space>>
+  enabled: boolean
+  order?: number
 }
 
 /**
@@ -960,6 +976,7 @@ export interface SocialId {
 export interface AccountInfo {
   timezone?: string
   locale?: string
+  tfaEnabled?: boolean
 }
 
 export type SocialKey = Pick<SocialId, 'type' | 'value'>

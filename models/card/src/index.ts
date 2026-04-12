@@ -61,6 +61,7 @@ import {
   Model,
   Prop,
   ReadOnly,
+  TypeBoolean,
   TypeCollaborativeDoc,
   TypeNumber,
   TypeRank,
@@ -83,7 +84,7 @@ import { PaletteColorIndexes } from '@hcengineering/ui/src/colors'
 import { type AnyComponent } from '@hcengineering/ui/src/types'
 import { type BuildModelKey } from '@hcengineering/view'
 import { createActions } from './actions'
-import { definePermissions } from './permissions'
+import { defineActionPermissions, definePermissions } from './permissions'
 import card from './plugin'
 import notification from '@hcengineering/notification'
 
@@ -94,6 +95,9 @@ export class TMasterTag extends TClass implements MasterTag {
   color?: number
   background?: number
   removed?: boolean
+
+  @Prop(TypeBoolean(), card.string.SingleColumn)
+    singleColumn?: boolean
 }
 
 @Model(card.class.Tag, core.class.Mixin)
@@ -390,6 +394,15 @@ export function createSystemType (
     config: listConfig
   })
 
+  builder.createDoc(view.class.Viewlet, core.space.Model, {
+    attachTo: type,
+    descriptor: card.viewlet.CardGridDescriptor,
+    baseQuery: {
+      isLatest: true
+    },
+    config: []
+  })
+
   if (viewDefaults !== undefined) {
     builder.mixin(type, card.class.MasterTag, card.mixin.CardViewDefaults, viewDefaults)
   }
@@ -426,6 +439,7 @@ export function createModel (builder: Builder): void {
 
   defineTabs(builder)
   definePermissions(builder)
+  defineActionPermissions(builder)
 
   builder.mixin(card.class.Card, core.class.Class, view.mixin.ObjectIcon, {
     component: card.component.CardIcon
@@ -777,6 +791,43 @@ export function createModel (builder: Builder): void {
   )
 
   builder.createDoc(
+    view.class.ViewletDescriptor,
+    core.space.Model,
+    {
+      label: card.string.Grid,
+      icon: card.icon.Grid,
+      component: card.component.CardGridView
+    },
+    card.viewlet.CardGridDescriptor
+  )
+
+  builder.createDoc(
+    view.class.Viewlet,
+    core.space.Model,
+    {
+      attachTo: card.class.Card,
+      descriptor: card.viewlet.CardGridDescriptor,
+      baseQuery: {
+        isLatest: true
+      },
+      config: [''],
+      configOptions: {
+        strict: true
+      },
+      viewOptions: {
+        groupBy: [],
+        orderBy: [
+          ['modifiedOn', SortingOrder.Descending],
+          ['rank', SortingOrder.Ascending],
+          ['title', SortingOrder.Descending]
+        ],
+        other: []
+      }
+    },
+    card.viewlet.CardGrid
+  )
+
+  builder.createDoc(
     presentation.class.ComponentPointExtension,
     core.space.Model,
     {
@@ -915,6 +966,45 @@ export function createModel (builder: Builder): void {
       expandable: true
     },
     card.ids.ManageMasterTags
+  )
+
+  builder.createDoc(
+    core.class.ClassPermission,
+    core.space.Model,
+    {
+      label: card.string.AllowCreatingCards,
+      scope: 'space',
+      targetClass: card.class.Card
+    },
+    card.ids.GuestCardClassPermission
+  )
+
+  builder.createDoc(
+    core.class.ModulePermissionGroup,
+    core.space.Model,
+    {
+      application: card.app.Card,
+      role: AccountRole.Guest,
+      permissions: [card.ids.GuestCardClassPermission],
+      spaceClass: card.class.CardSpace,
+      enabled: true,
+      order: 20
+    },
+    card.ids.ModulePermissionGroup
+  )
+
+  builder.createDoc(
+    core.class.ModulePermissionGroup,
+    core.space.Model,
+    {
+      application: card.app.Card,
+      role: AccountRole.ReadOnlyGuest,
+      permissions: [],
+      spaceClass: card.class.CardSpace,
+      enabled: false,
+      order: 20
+    },
+    card.ids.ModulePermissionGroupReadOnlyGuest
   )
 
   builder.mixin(card.class.Card, core.class.Class, view.mixin.ClassFilters, {
