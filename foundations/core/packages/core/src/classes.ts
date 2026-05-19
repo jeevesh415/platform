@@ -593,7 +593,7 @@ export interface ModulePermissionGroup extends Doc {
   role: AccountRole
   permissions: Ref<Permission>[]
   disabledPermissions?: Ref<Permission>[]
-  spaceClass: Ref<Class<Space>>
+  spaceClass?: Ref<Class<Space>>
   enabled: boolean
   order?: number
 }
@@ -668,6 +668,7 @@ export interface Version extends Doc {
 export interface MigrationState extends Doc {
   plugin: string
   state: string
+  durationMs?: number
 }
 
 /**

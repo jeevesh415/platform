@@ -9666,6 +9666,9 @@ importers:
       '@hcengineering/model-core':
         specifier: workspace:^0.7.0
         version: link:../core
+      '@hcengineering/model-print':
+        specifier: workspace:^0.7.0
+        version: link:../print
       '@hcengineering/model-tracker':
         specifier: workspace:^0.7.0
         version: link:../tracker
@@ -18563,6 +18566,9 @@ importers:
       '@hcengineering/core':
         specifier: workspace:^0.7.26
         version: link:../../foundations/core/packages/core
+      '@hcengineering/emoji-resources':
+        specifier: workspace:^0.7.0
+        version: link:../emoji-resources
       '@hcengineering/image-cropper':
         specifier: workspace:^0.7.0
         version: link:../image-cropper
@@ -19090,6 +19096,12 @@ importers:
       '@hcengineering/presentation':
         specifier: workspace:^0.7.0
         version: link:../../packages/presentation
+      '@hcengineering/text':
+        specifier: workspace:^0.7.19
+        version: link:../../foundations/core/packages/text
+      '@hcengineering/text-markdown':
+        specifier: workspace:^0.7.21
+        version: link:../../foundations/core/packages/text-markdown
       '@hcengineering/theme':
         specifier: workspace:^0.7.0
         version: link:../../packages/theme
@@ -24750,6 +24762,9 @@ importers:
       '@hcengineering/setting-resources':
         specifier: workspace:^0.7.0
         version: link:../setting-resources
+      '@hcengineering/text-core':
+        specifier: workspace:^0.7.19
+        version: link:../../foundations/core/packages/text-core
       '@hcengineering/time':
         specifier: workspace:^0.7.0
         version: link:../time
@@ -34277,6 +34292,9 @@ importers:
       '@hcengineering/server-process':
         specifier: workspace:^0.7.0
         version: link:../process
+      '@hcengineering/text-core':
+        specifier: workspace:^0.7.19
+        version: link:../../foundations/core/packages/text-core
       '@hcengineering/time':
         specifier: workspace:^0.7.0
         version: link:../../plugins/time
@@ -38274,6 +38292,9 @@ importers:
       '@hcengineering/postgres':
         specifier: workspace:^0.7.22
         version: link:../../../foundations/server/packages/postgres
+      '@hcengineering/products':
+        specifier: workspace:^0.7.0
+        version: link:../../../plugins/products
       '@hcengineering/server-client':
         specifier: workspace:^0.7.16
         version: link:../../../foundations/server/packages/client

@@ -177,6 +177,8 @@ export default mergeIds(processId, process, {
     Absolute: '' as IntlString,
     Ceil: '' as IntlString,
     Floor: '' as IntlString,
+    Min: '' as IntlString,
+    Max: '' as IntlString,
     Offset: '' as IntlString,
     Value: '' as IntlString,
     FirstWorkingDayAfter: '' as IntlString,
@@ -265,9 +267,12 @@ export default mergeIds(processId, process, {
     UnlockField: '' as IntlString,
     Export: '' as IntlString,
     Import: '' as IntlString,
+    TextFromIdentifier: '' as IntlString,
     TextFromNumber: '' as IntlString,
     TextFromDate: '' as IntlString,
     TextFromCheckbox: '' as IntlString,
+    TextFromMarkup: '' as IntlString,
+    MarkupFromText: '' as IntlString,
     NumberFromDate: '' as IntlString,
     DateFromNumber: '' as IntlString,
     NumberFromText: '' as IntlString,
@@ -275,7 +280,10 @@ export default mergeIds(processId, process, {
     YearFromDate: '' as IntlString,
     MonthFromDate: '' as IntlString,
     DayFromDate: '' as IntlString,
-    DateDifference: '' as IntlString
+    DateDifference: '' as IntlString,
+    TextFromSelect: '' as IntlString,
+    SelectFromText: '' as IntlString,
+    AskSubclass: '' as IntlString
   },
   permission: {
     RunProcess: '' as Ref<Permission>,
